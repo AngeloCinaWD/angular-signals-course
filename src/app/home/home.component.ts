@@ -4,6 +4,7 @@ import {
   effect,
   inject,
   Injector,
+  Signal,
   signal,
   WritableSignal,
 } from '@angular/core';
@@ -26,31 +27,18 @@ import {
   imports: [MatTabGroup, MatTab, CoursesCardListComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
-  // tramite il flag true su signal avvisiamo angular che questo è un signal based component
-  // questo permette ad angular di cambiare il change detection mechanism di default in signal based change detection
-  // signal based change detection non è ancora disponibile in angular, se provo a mettere la proprietà signals mi dà infatti una serie di errori
-  //   signals: true,
 })
 export class HomeComponent {
-  // angular di default capisce cosa cambia nel DOM e va a mostrane il valore cambiato a schermo tramite change detection
-  // per fare questo angular utilizza la libreria zone.js, atraverso questa i valori nel template vengono comparati con quelli del model prima e dopo un evento del DOM (ad esempio un click)
-  counter = 0;
-
-  // implementiamo un signal
-  // un signal deve sempre avere un valore di default
-  // questo non è un type number, ma un WritableSignal<number>, cioè un number wrappato in un container
-  // uno dei motivi principali perchè è conveniente utilizzare i signals è che angular è come se effettuasse una sorta di subscription ad un signal e quando il valore che wrappa cambia angular sa esattamente dove deve andare ad aggiornare il dom
-  // così non dovremmo utilizzare più semplici properties
-  // un'altra cosa importante da fare è, se il componente ha solo signals, marcarlo come signal based component
   counterSignal: WritableSignal<number> = signal(0);
 
-  increment() {
-    this.counter++;
-  }
+  // i signals possono essere anche read only, non modificabili tramite .set() e .uodtae()
+  // per dichiarare un signal come read only si aggiunge il metodo .asReadonly() e sno di tipo Signal
+  counterReadOnly: Signal<number> = signal(100).asReadonly();
 
   incrementSignalCounter() {
-    // per incrementare il valore del signal lo possiamo fare settando il nuovo valore attraverso il .set()
-    // il valore attuale del signal lo riceviamo invocando il signal
-    this.counterSignal.set(this.counterSignal() + 1);
+    // this.counterSignal.set(this.counterSignal() + 1);
+    // per modificare il valore di un signal si può utilizzare anche un'altra API al posto di .set(), l'API .update()
+    // questo metodo ritorna una callback che ha come primo parametro il valore attuale del signal e ritorna il valore che vogliamo noi
+    this.counterSignal.update((counter) => counter + 1);
   }
 }
