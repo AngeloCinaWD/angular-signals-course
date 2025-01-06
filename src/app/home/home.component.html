@@ -6,7 +6,8 @@
   <!-- creo un button che chiama al click un metodo incrementSignalCounter() che aumenta di uno il valore del signal counterSignal -->
   <button class="btn" (click)="incrementSignalCounter()">Increment</button>
   <!-- per accedere al value contenuto nel signal bisogna invocare il signal, come se fosse un metodo -->
-  <h3>counterSignal: {{ counterSignal() }}</h3>
+  <!-- essendo ora un Object accedo alla property value -->
+  <h3>counterSignal: {{ counterSignal().value }}</h3>
 
   <mat-tab-group>
     <mat-tab label="Beginners"> </mat-tab>

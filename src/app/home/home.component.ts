@@ -22,6 +22,11 @@ import {
   outputFromObservable,
 } from '@angular/core/rxjs-interop';
 
+// creiamo un type che sia un object literal
+type Counter = {
+  value: number;
+};
+
 @Component({
   selector: 'home',
   imports: [MatTabGroup, MatTab, CoursesCardListComponent],
@@ -29,16 +34,22 @@ import {
   styleUrl: './home.component.scss',
 })
 export class HomeComponent {
-  counterSignal: WritableSignal<number> = signal(0);
+  // riscrivo il signal col nuovo type Counter che è un object literal
+  //   counterSignal: WritableSignal<number> = signal(0);
+  counterSignal: WritableSignal<Counter> = signal<Counter>({ value: 0 });
 
   // i signals possono essere anche read only, non modificabili tramite .set() e .uodtae()
   // per dichiarare un signal come read only si aggiunge il metodo .asReadonly() e sno di tipo Signal
   counterReadOnly: Signal<number> = signal(100).asReadonly();
 
   incrementSignalCounter() {
-    // this.counterSignal.set(this.counterSignal() + 1);
-    // per modificare il valore di un signal si può utilizzare anche un'altra API al posto di .set(), l'API .update()
-    // questo metodo ritorna una callback che ha come primo parametro il valore attuale del signal e ritorna il valore che vogliamo noi
-    this.counterSignal.update((counter) => counter + 1);
+    // ora che il counter è un oggetto Counter un modo sbagliato di modificarne il valore è accedere direttamente alla proprietà
+    // questa modalità funziona con la change detection normale, quando ci sarà la signal based change detection questo non funzionerà, non verrà visto il cambiamento
+    // this.counterSignal().value++;
+    // il modo corretto è passare una copia dell'oggetto counter e modificare la proprietà col nuovo valore, sempre tramite metodo .update()
+    this.counterSignal.update((counter) => ({
+      ...counter,
+      value: counter.value + 1,
+    }));
   }
 }
