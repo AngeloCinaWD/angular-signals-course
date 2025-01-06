@@ -9,6 +9,10 @@
   <!-- essendo ora un Object accedo alla property value -->
   <h3>counterSignal: {{ counterSignal().value }}</h3>
 
+  <button class="btn" (click)="append()">Append</button>
+  <!-- mostro i valori contenuti nell'array come stringa separati da una virgola -->
+  <h3>values: {{ values().join(", ") }}</h3>
+
   <mat-tab-group>
     <mat-tab label="Beginners"> </mat-tab>
 
