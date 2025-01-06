@@ -1,24 +1,21 @@
 <div class="courses-panel">
-
   <h3>All Courses</h3>
 
-  <button class="btn">
-    Add Course
-  </button>
+  <button class="btn">Add Course</button>
+
+  <!-- creo un button che chiama al click un metodo increment() che aumenta di uno il valore della property counter -->
+  <button class="btn" (click)="increment()">Increment</button>
+
+  <h3>counter: {{ counter }}</h3>
+
+  <!-- creo un button che chiama al click un metodo incrementSignalCounter() che aumenta di uno il valore del signal counterSignal -->
+  <button class="btn" (click)="incrementSignalCounter()">Increment</button>
+  <!-- per accedere al value contenuto nel signal bisogna invocare il signal, come se fosse un metodo -->
+  <h3>counterSignal: {{ counterSignal() }}</h3>
 
   <mat-tab-group>
+    <mat-tab label="Beginners"> </mat-tab>
 
-    <mat-tab label="Beginners">
-
-
-
-    </mat-tab>
-
-    <mat-tab label="Advanced">
-
-
-    </mat-tab>
-
+    <mat-tab label="Advanced"> </mat-tab>
   </mat-tab-group>
-
 </div>
