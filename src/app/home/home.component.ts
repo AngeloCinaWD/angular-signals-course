@@ -28,6 +28,7 @@ import {
   styleUrl: './home.component.scss',
   // tramite il flag true su signal avvisiamo angular che questo è un signal based component
   // questo permette ad angular di cambiare il change detection mechanism di default in signal based change detection
+  // signal based change detection non è ancora disponibile in angular, se provo a mettere la proprietà signals mi dà infatti una serie di errori
   //   signals: true,
 })
 export class HomeComponent {
