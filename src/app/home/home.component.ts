@@ -26,6 +26,9 @@ import {
   imports: [MatTabGroup, MatTab, CoursesCardListComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
+  // tramite il flag true su signal avvisiamo angular che questo è un signal based component
+  // questo permette ad angular di cambiare il change detection mechanism di default in signal based change detection
+  //   signals: true,
 })
 export class HomeComponent {
   // angular di default capisce cosa cambia nel DOM e va a mostrane il valore cambiato a schermo tramite change detection
@@ -35,6 +38,9 @@ export class HomeComponent {
   // implementiamo un signal
   // un signal deve sempre avere un valore di default
   // questo non è un type number, ma un WritableSignal<number>, cioè un number wrappato in un container
+  // uno dei motivi principali perchè è conveniente utilizzare i signals è che angular è come se effettuasse una sorta di subscription ad un signal e quando il valore che wrappa cambia angular sa esattamente dove deve andare ad aggiornare il dom
+  // così non dovremmo utilizzare più semplici properties
+  // un'altra cosa importante da fare è, se il componente ha solo signals, marcarlo come signal based component
   counterSignal: WritableSignal<number> = signal(0);
 
   increment() {
