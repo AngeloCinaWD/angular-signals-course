@@ -52,6 +52,18 @@ export class HomeComponent {
 
   values: WritableSignal<number[]> = signal<number[]>([0]);
 
+  constructor() {
+    // se volessi far fare qualcosa ogni volta che un signal cambia il suo valore, posso dichiarare un PURE SIDE EFFECT
+    // utilizzando l'API effect() qui nel costruttore
+    // nel corpo della funzione indico quello che devve accadere quando un signal cambia valore, invocandolo
+    // posso invocare anche un computed signal
+    // non vanno utilizzati spesso i pure side effects è meglio utilizzare le funzioni in modo esplicito, ad esempio salvare i dati di un form in un BE quando clicco un button
+    effect(() => {
+      // console.log('Value of counter signal: ' + this.counterSignal().value);
+      console.log('Value of computed signal: ' + this.tenXCounter());
+    });
+  }
+
   incrementSignalCounter() {
     this.counterSignal.update((counter) => ({
       ...counter,
