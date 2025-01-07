@@ -8,6 +8,10 @@
   <!-- per accedere al value contenuto nel signal bisogna invocare il signal, come se fosse un metodo -->
   <!-- essendo ora un Object accedo alla property value -->
   <h3>counterSignal: {{ counterSignal().value }}</h3>
+  <!-- valore computato da un signal-->
+  <h3>tenXCounter: {{ tenXCounter() }}</h3>
+  <!-- valore computato da un computed signal-->
+  <h3>hundredXCounter: {{ hundredXCounter() }}</h3>
 
   <button class="btn" (click)="append()">Append</button>
   <!-- mostro i valori contenuti nell'array come stringa separati da una virgola -->
