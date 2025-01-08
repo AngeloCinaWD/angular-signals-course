@@ -3,6 +3,7 @@ import {
   Component,
   computed,
   effect,
+  EffectRef,
   inject,
   Injector,
   Signal,
@@ -54,7 +55,10 @@ export class HomeComponent {
   values: WritableSignal<number[]> = signal<number[]>([0]);
 
   // inietto l'Injector
-  injector = inject(Injector);
+  // injector = inject(Injector);
+
+  // property type EffectRef, inizialmente ha valore null
+  effectRef: EffectRef | null = null;
 
   constructor() {
     // se volessi far fare qualcosa ogni volta che un signal cambia il suo valore, posso dichiarare un PURE SIDE EFFECT
@@ -71,16 +75,31 @@ export class HomeComponent {
     //   // console.log('Value of counter signal: ' + this.counterSignal().value);
     //   console.log('Value of computed signal: ' + this.tenXCounter());
     // });
-    afterNextRender(() => {
-      effect(
-        () => {
-          // console.log('Value of counter signal: ' + this.counterSignal().value);
-          console.log('Value of computed signal: ' + this.tenXCounter());
-        },
-        {
-          injector: this.injector,
-        }
-      );
+    // afterNextRender(() => {
+    //   effect(
+    //     () => {
+    //       // console.log('Value of counter signal: ' + this.counterSignal().value);
+    //       console.log('Value of computed signal: ' + this.tenXCounter());
+    //     },
+    //     {
+    //       injector: this.injector,
+    //     }
+    //   );
+    // });
+
+    // ci sono situazioni in cui la pulizia degli effect deve essere effettuata manualmente
+    // salvo in una property una referenza all'effect, type EffectRef
+    this.effectRef = effect(() => {
+      // console.log('Value of counter signal: ' + this.counterSignal().value);
+      console.log('Value of computed signal: ' + this.tenXCounter());
+
+      // se volessi ad esempio avere un log in console dopo qualche secondo
+      // non posso creare la dependency all'interno di un'altra funzione, di una closure, devo crearla prima e poi utilizzare la dependecncy
+      const counter = this.counterSignal();
+
+      const timeout = setTimeout(() => {
+        console.log('Value of counter signal: ' + counter.value);
+      }, 2000);
     });
   }
 
@@ -93,5 +112,11 @@ export class HomeComponent {
 
   append() {
     this.values.update((values) => [...values, values[values.length - 1] + 1]);
+  }
+
+  // metodo per ripulire gli effects
+  // chiamo il metodo .destroy() dell'EffectRef
+  cleanUp() {
+    this.effectRef?.destroy();
   }
 }

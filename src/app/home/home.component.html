@@ -17,6 +17,9 @@
   <!-- mostro i valori contenuti nell'array come stringa separati da una virgola -->
   <h3>values: {{ values().join(", ") }}</h3>
 
+  <!-- creo un button che chiama al click il metodo cleanUp(), per ripulire gli effects -->
+  <button class="btn" (click)="cleanUp()">Clean up</button>
+
   <mat-tab-group>
     <mat-tab label="Beginners"> </mat-tab>
 
