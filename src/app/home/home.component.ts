@@ -36,5 +36,9 @@ type Counter = {
   styleUrl: './home.component.scss',
 })
 export class HomeComponent {
-  constructor() {}
+  // inizializziamo una variabile courses come un signal array di corsi con valore iniziale array vuoto
+  courses: WritableSignal<Course[]> = signal<Course[]>([]);
+
+  // inietto il CoursesService per fetchare i dati dal BE
+  coursesService: CoursesService = inject(CoursesService);
 }
