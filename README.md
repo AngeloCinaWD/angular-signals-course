@@ -8,12 +8,6 @@ This course repository is updated to Angular 19
 
 IMPORTANT: Please use Node 18 (Long Term Support version).
 
-# Installing the Angular CLI
-
-Start by doing a global installation of the Angular CLI:
-
-    npm install -g @angular/cli
-
 # Running the local backend server
 
 In order to be able to provide more realistic examples, we will need in our playground a small REST API backend server.
@@ -22,14 +16,16 @@ We can start the sample application backend with the following command:
 
     npm run server
 
-# To run the Frontend Server
+[custom type](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html)
 
-To run the frontend part of our code, we will use the Angular CLI:
+[tRPC](https://trpc.io/)
 
-    npm start
+[js fetch()](https://it.javascript.info/fetch)
 
-You can also start the frontend application using the following command:
+[js fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch)
 
-    ng serve
+[ng HTTP](https://angular.dev/guide/http)
 
-The application is visible in port 4200: [http://localhost:4200](http://localhost:4200)
+[Response Interface](https://developer.mozilla.org/en-US/docs/Web/API/Response)
+
+[Response.json()](https://developer.mozilla.org/en-US/docs/Web/API/Response/json)
