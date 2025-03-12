@@ -29,3 +29,7 @@ We can start the sample application backend with the following command:
 [Response Interface](https://developer.mozilla.org/en-US/docs/Web/API/Response)
 
 [Response.json()](https://developer.mozilla.org/en-US/docs/Web/API/Response/json)
+
+[ng Lifecycle](https://angular.dev/guide/components/lifecycle)
+
+[ng afterNextRender()](https://angular.dev/api/core/afterNextRender)

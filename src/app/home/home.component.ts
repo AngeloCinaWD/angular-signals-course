@@ -26,11 +26,6 @@ import {
 } from '@angular/core/rxjs-interop';
 import { CoursesServiceWithFetch } from '../services/courses-fetch.service';
 
-// creiamo un type che sia un object literal
-type Counter = {
-  value: number;
-};
-
 @Component({
   selector: 'home',
   imports: [MatTabGroup, MatTab, CoursesCardListComponent],
@@ -38,48 +33,38 @@ type Counter = {
   styleUrl: './home.component.scss',
 })
 export class HomeComponent implements OnInit {
-  // inizializziamo una variabile courses come un signal array di corsi con valore iniziale array vuoto
   courses: WritableSignal<Course[]> = signal<Course[]>([]);
 
-  // inietto il CoursesService per fetchare i dati dal BE
-  coursesService: CoursesService = inject(CoursesService);
+  // coursesService: CoursesService = inject(CoursesService);
 
-  // inietto il CourseFetchService
   coursesFetchService: CoursesServiceWithFetch = inject(
     CoursesServiceWithFetch
   );
 
   constructor() {
-    // chiamo il emetodo per fetcahe i courses
-    this.loadCourses().then(() => console.log(this.courses()));
-  }
+    // this.loadCourses().then(() => console.log(this.courses()));
+    // console.log('constructor');
 
-  // metodo per fetchare i corsi by promise
-  // loadCourses() {
-  //   this.coursesFetchService
-  //     .loadAllCourses()
-  //     // tramite il .then() assegno al signal courses l'array di Course
-  //     .then((courses) => this.courses.set(courses))
-  //     // per gestire eventuali errori utilizzo il .catch()
-  //     .catch(err => {});
-  // }
-  // è più semplice gestire il tutto tramite sintassi async await
-  async loadCourses() {
-    // quello che ricevo è una promise quindi posso utilizzare await al posto di stare a scivere il .then() e salvare tutto in una const
-    // inoltre la gestione degli errori è molto semplice, si utilizza lo statement try catch
-    try {
-      const courses = await this.coursesFetchService.loadAllCourses();
-
-      //  in questo modo quando si avrà la risposta dal backend con i dati, questi verranno assegnati al signal courses
-      this.courses.set(courses);
-    } catch (err) {
-      // se nel blocco try c'è un await, quindi gestisce una promise, se la promise lancia un errore questo viene intercettato e può essere gestito nel catch block
-      console.log(err);
-    }
+    // il fetch dei corsi può essere fatto o nel constructor, o nel lifecycle onInit o qui nel costruttore con il lifecycle afterNextRender()
+    // la callback in questo lifecycle viene chiamata una volta dopo che il next render viene effettuato
+    // viene triggerato dopo l'onInit
+    afterNextRender(() => {
+      this.loadCourses().then(() => console.log(this.courses()));
+      // console.log('afternextrender');
+    });
   }
 
   ngOnInit(): void {
-    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-    //Add 'implements OnInit' to the class.
+    // console.log('oninit');
+    // this.loadCourses().then(() => console.log(this.courses()));
+  }
+
+  async loadCourses() {
+    try {
+      const courses = await this.coursesFetchService.loadAllCourses();
+      this.courses.set(courses);
+    } catch (err) {
+      console.log(err);
+    }
   }
 }
