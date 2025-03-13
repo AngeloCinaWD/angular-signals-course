@@ -33,29 +33,44 @@ import { CoursesServiceWithFetch } from '../services/courses-fetch.service';
   styleUrl: './home.component.scss',
 })
 export class HomeComponent implements OnInit {
-  courses: WritableSignal<Course[]> = signal<Course[]>([]);
+  // dichiaro questa proprietà private tramite shorthand di js #
+  // in questo modo questa non sarà più visibile dall'esterno della classe e quindi neanche nel template
+  #courses: WritableSignal<Course[]> = signal<Course[]>([]);
 
-  // utilizzo il service che lavora con l'HttpClient di ng
   coursesService: CoursesService = inject(CoursesService);
 
-  // non utilizzo più il fetch per ricevere i dati
-  // coursesFetchService: CoursesServiceWithFetch = inject(
-  //   CoursesServiceWithFetch
-  // );
+  // voglio dividere i corsi ricevuti secondo la categoria
+  // utilizzo i computed signals
+  beginnerCourses: Signal<Course[]> = computed(() => {
+    // il modo migliore per definire una computed è indicare all'inizio quali sono i signals da cui dipende
+    const courses = this.#courses();
+    // filtro i corsi secondo categoria con array method js .filter()
+    // senza il return mi restituirebbe un undefined
+    return courses.filter((course) => course.category === 'BEGINNER');
+  });
+
+  // advanced courses
+  advancedCourses: Signal<Course[]> = computed(() => {
+    const courses = this.#courses();
+    return courses.filter((course) => course.category === 'ADVANCED');
+  });
 
   constructor() {
-    afterNextRender(() => {
-      this.loadCourses().then(() => console.log(this.courses()));
-    });
+    this.loadCourses().then(() =>
+      console.log(
+        this.#courses(),
+        this.beginnerCourses(),
+        this.advancedCourses()
+      )
+    );
   }
 
   ngOnInit(): void {}
 
   async loadCourses() {
     try {
-      // const courses = await this.coursesFetchService.loadAllCourses();
       const courses = await this.coursesService.loadAllCourses();
-      this.courses.set(courses);
+      this.#courses.set(courses);
     } catch (err) {
       console.log(err);
     }

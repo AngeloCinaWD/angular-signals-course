@@ -43,3 +43,5 @@ We can start the sample application backend with the following command:
 [private properties](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/Private_properties)
 
 [# private property](https://medium.com/@chandrashekharsingh25/private-class-properties-with-symbol-in-angular-26dd34126c6e)
+
+[js .filter()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter)
