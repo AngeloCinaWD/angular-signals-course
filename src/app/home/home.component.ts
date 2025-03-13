@@ -35,33 +35,26 @@ import { CoursesServiceWithFetch } from '../services/courses-fetch.service';
 export class HomeComponent implements OnInit {
   courses: WritableSignal<Course[]> = signal<Course[]>([]);
 
-  // coursesService: CoursesService = inject(CoursesService);
+  // utilizzo il service che lavora con l'HttpClient di ng
+  coursesService: CoursesService = inject(CoursesService);
 
-  coursesFetchService: CoursesServiceWithFetch = inject(
-    CoursesServiceWithFetch
-  );
+  // non utilizzo più il fetch per ricevere i dati
+  // coursesFetchService: CoursesServiceWithFetch = inject(
+  //   CoursesServiceWithFetch
+  // );
 
   constructor() {
-    // this.loadCourses().then(() => console.log(this.courses()));
-    // console.log('constructor');
-
-    // il fetch dei corsi può essere fatto o nel constructor, o nel lifecycle onInit o qui nel costruttore con il lifecycle afterNextRender()
-    // la callback in questo lifecycle viene chiamata una volta dopo che il next render viene effettuato
-    // viene triggerato dopo l'onInit
     afterNextRender(() => {
       this.loadCourses().then(() => console.log(this.courses()));
-      // console.log('afternextrender');
     });
   }
 
-  ngOnInit(): void {
-    // console.log('oninit');
-    // this.loadCourses().then(() => console.log(this.courses()));
-  }
+  ngOnInit(): void {}
 
   async loadCourses() {
     try {
-      const courses = await this.coursesFetchService.loadAllCourses();
+      // const courses = await this.coursesFetchService.loadAllCourses();
+      const courses = await this.coursesService.loadAllCourses();
       this.courses.set(courses);
     } catch (err) {
       console.log(err);

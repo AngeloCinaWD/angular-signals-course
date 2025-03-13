@@ -33,3 +33,13 @@ We can start the sample application backend with the following command:
 [ng Lifecycle](https://angular.dev/guide/components/lifecycle)
 
 [ng afterNextRender()](https://angular.dev/api/core/afterNextRender)
+
+[ng HTTP interceptor](https://medium.com/@valeriocomo/angular-http-interceptor-417ffda5f2e6)
+
+[rxjs firstValueFrom()](https://rxjs.dev/api/index/function/firstValueFrom)
+
+[ng computed signals](https://angular.dev/guide/signals#computed-signals)
+
+[private properties](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/Private_properties)
+
+[# private property](https://medium.com/@chandrashekharsingh25/private-class-properties-with-symbol-in-angular-26dd34126c6e)
