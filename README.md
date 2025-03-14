@@ -49,3 +49,7 @@ We can start the sample application backend with the following command:
 [js .filter()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter)
 
 [ng signal input](https://v17.angular.io/guide/signal-inputs)
+
+[error stream](https://github.com/exceljs/exceljs/issues/1323#issuecomment-684463556)
+
+[.sort()](https://www.w3schools.com/js/js_array_sort.asp)

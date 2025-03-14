@@ -14,7 +14,7 @@ export class CoursesCardListComponent {
   // passiamo i corsi da visualizzare tramite signal inputs
   // rendiamo required, obbligatoria, l'input
   // un'input obbligatoria non permette di passare un valore iniziale di default
-  // courses: InputSignal<Course[]> = input.required<Course[]>();
+  //   courses: InputSignal<Course[]> = input.required<Course[]>();
   // i signals hanno sempre un valore iniziale, quindi nel caso si utilizzi una input required e non si può passare il valore iniziale, angular la considererà come undefined
   // utilizzo l'input come non obbligatoria e definisco come initial value un array vuoto
   courses: InputSignal<Course[]> = input<Course[]>([], {

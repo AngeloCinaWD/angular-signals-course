@@ -48,13 +48,12 @@ export class HomeComponent implements OnInit {
   });
 
   constructor() {
-    this.loadCourses().then(() =>
-      console.log(
-        this.#courses(),
-        this.beginnerCourses(),
-        this.advancedCourses()
-      )
-    );
+    // effect(() => {
+    //   console.log(`Beginner courses: `, this.beginnerCourses());
+    //   console.log(`Advanced courses: `, this.advancedCourses());
+    // });
+
+    this.loadCourses().then(() => console.log(this.#courses()));
   }
 
   ngOnInit(): void {}
@@ -62,7 +61,9 @@ export class HomeComponent implements OnInit {
   async loadCourses() {
     try {
       const courses = await this.coursesService.loadAllCourses();
-      this.#courses.set(courses);
+      // this.#courses.set(courses);
+      // ordiniamo i corsi secondo seqNo
+      this.#courses.set(courses.sort(sortCoursesBySeqNo));
     } catch (err) {
       console.log(err);
     }
