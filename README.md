@@ -4,6 +4,8 @@ This repository contains the code of the [Modern Angular With Signals Course](ht
 
 This course repository is updated to Angular 19
 
+[GitHubCode](https://github.com/angular-university/angular-signals-course)
+
 # Installation pre-requisites
 
 IMPORTANT: Please use Node 18 (Long Term Support version).
@@ -45,3 +47,5 @@ We can start the sample application backend with the following command:
 [# private property](https://medium.com/@chandrashekharsingh25/private-class-properties-with-symbol-in-angular-26dd34126c6e)
 
 [js .filter()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter)
+
+[ng signal input](https://v17.angular.io/guide/signal-inputs)
